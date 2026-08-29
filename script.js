@@ -38,6 +38,19 @@ document.addEventListener('DOMContentLoaded', () => {
   initCategoriesDatabase();
   initExportListeners();
   recalculateAll();
+
+  // BACKSPACE KEY LISTENER (Return to Home Page if not typing in an input field)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Backspace') {
+      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+      const isEditable = document.activeElement ? document.activeElement.isContentEditable : false;
+      if (activeTag !== 'input' && activeTag !== 'textarea' && activeTag !== 'select' && !isEditable) {
+        if (typeof window.logoutToLanding === 'function') {
+          window.logoutToLanding();
+        }
+      }
+    }
+  });
 });
 
 // GLOBAL VIEW SWITCHERS
