@@ -27,18 +27,31 @@
 </head>
 <body class="bg-[var(--bg-primary)] text-[var(--text-primary)]">
   <script>
-    // Global Backspace Key Listener for Home Navigation
+    // Global Backspace Key Listener for Home Navigation Across All Views
     window.addEventListener('keydown', function(e) {
       if (e.key === 'Backspace' || e.keyCode === 8) {
         const active = document.activeElement;
         const tag = active ? active.tagName.toLowerCase() : '';
         const isEditable = active ? active.isContentEditable : false;
         
-        // Only trigger if user is NOT currently typing in a text field
+        // Only trigger if user is NOT currently typing in a text input field
         if (tag !== 'input' && tag !== 'textarea' && tag !== 'select' && !isEditable) {
           e.preventDefault();
-          if (typeof window.logoutToLanding === 'function') {
-            window.logoutToLanding();
+          const landing = document.getElementById('landingView');
+          const app = document.getElementById('appContainer');
+          
+          if (app && !app.classList.contains('hidden')) {
+            // Return to landing page
+            app.classList.add('hidden');
+            app.style.display = 'none';
+            if (landing) landing.classList.remove('hidden');
+          } else if (landing) {
+            // Launch tracker
+            landing.classList.add('hidden');
+            if (app) {
+              app.classList.remove('hidden');
+              app.style.display = 'flex';
+            }
           }
         }
       }
