@@ -40,6 +40,28 @@ document.addEventListener('DOMContentLoaded', () => {
   recalculateAll();
 });
 
+// GLOBAL VIEW SWITCHERS
+window.launchAppDirectly = function() {
+  const landing = document.getElementById('landingView');
+  const app = document.getElementById('appContainer');
+  if (landing) landing.classList.add('hidden');
+  if (app) {
+    app.classList.remove('hidden');
+    app.style.display = 'flex';
+  }
+  recalculateAll();
+};
+
+window.logoutToLanding = function() {
+  const landing = document.getElementById('landingView');
+  const app = document.getElementById('appContainer');
+  if (app) {
+    app.classList.add('hidden');
+    app.style.display = 'none';
+  }
+  if (landing) landing.classList.remove('hidden');
+};
+
 // THEME SYSTEM
 function initTheme() {
   const themeToggle = document.getElementById('themeToggle');
