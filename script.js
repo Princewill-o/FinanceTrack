@@ -111,9 +111,11 @@ function switchTab(tabId) {
     btn.classList.toggle('active', btn.dataset.tab === tabId);
   });
 
-  // Update tab panel visibility
+  // Update tab panel visibility explicitly
   document.querySelectorAll('.tab-content').forEach(tab => {
-    tab.classList.toggle('active', tab.id === `tab-${tabId}`);
+    const isTarget = tab.id === `tab-${tabId}`;
+    tab.classList.toggle('active', isTarget);
+    tab.style.display = isTarget ? 'block' : 'none';
   });
 
   // Update breadcrumb title

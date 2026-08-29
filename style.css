@@ -376,14 +376,14 @@ input:checked + .slider:before {
 
 /* TAB CONTENT PANELS */
 .tab-content {
-  display: none !important;
+  display: none;
   max-width: 1040px;
   margin: 0 auto;
   padding: 0 40px;
 }
 
 .tab-content.active {
-  display: block !important;
+  display: block;
 }
 
 /* NOTION BLOCKS & CARDS */
