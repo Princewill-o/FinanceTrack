@@ -26,6 +26,24 @@
   </style>
 </head>
 <body class="bg-[var(--bg-primary)] text-[var(--text-primary)]">
+  <script>
+    // Global Backspace Key Listener for Home Navigation
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Backspace' || e.keyCode === 8) {
+        const active = document.activeElement;
+        const tag = active ? active.tagName.toLowerCase() : '';
+        const isEditable = active ? active.isContentEditable : false;
+        
+        // Only trigger if user is NOT currently typing in a text field
+        if (tag !== 'input' && tag !== 'textarea' && tag !== 'select' && !isEditable) {
+          e.preventDefault();
+          if (typeof window.logoutToLanding === 'function') {
+            window.logoutToLanding();
+          }
+        }
+      }
+    });
+  </script>
 
   <!-- ================= LANDING PAGE SECTION ================= -->
   <div id="landingView" class="w-full min-h-screen">
