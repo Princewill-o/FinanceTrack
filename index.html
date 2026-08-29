@@ -157,9 +157,9 @@
       </nav>
 
       <div class="p-3 border-t border-[var(--border-color)]">
-        <button onclick="logoutToLanding()" class="w-full text-left flex items-center gap-2 text-xs font-medium text-slate-500 hover:text-slate-900 transition">
-          <i class="fa-solid fa-right-from-bracket"></i>
-          <span>Sign Out</span>
+        <button onclick="logoutToLanding()" class="w-full text-left flex items-center gap-2 text-xs font-medium text-slate-500 hover:text-slate-900 transition cursor-pointer">
+          <i class="fa-solid fa-house"></i>
+          <span>Return to Home</span>
         </button>
       </div>
     </aside>
@@ -627,21 +627,7 @@
     </div>
   </div>
 
-  <!-- DB & FIREBASE AUTH INTEGRATION -->
-  <script src="db.js"></script>
-  <script>
-    // Synchronous Auth Fallback Object for Instant Button Click Readiness on Deployments
-    if (!window.firebaseAuth) {
-      window.firebaseAuth = {
-        async signUp(name, email, pass) { return window.db ? window.db.signUp(name, email, pass) : null; },
-        async login(email, pass) { return window.db ? window.db.login(email, pass) : null; },
-        async logout() { if (window.db) window.db.logout(); },
-        getCurrentUser() { return window.db ? window.db.getCurrentUser() : null; },
-        async saveFinanceData(id, data) { if (window.db) window.db.saveUserData(id, data); }
-      };
-    }
-  </script>
-  <script type="module" src="firebase.js"></script>
+  <!-- DYNAMIC EXCEL & CHART SCRIPTS -->
   <script src="script.js"></script>
   <script>
     // LANDING & APP THEME TOGGLE LOGIC
