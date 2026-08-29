@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal Finance Tracker | Grace Workspace</title>
+  <title>Grace Finance | Smart Financial Management</title>
   <!-- Google Fonts: Poppins & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,53 +12,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- ExcelJS & FileSaver -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-  <!-- html2pdf.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
   <link rel="stylesheet" href="style.css">
   <style>
     * { font-family: 'Poppins', 'Inter', sans-serif; }
   </style>
 </head>
 <body class="bg-[var(--bg-primary)] text-[var(--text-primary)]">
-  <script>
-    // Global Backspace Key Listener to return to home landing page
-    window.addEventListener('keydown', function(e) {
-      if (e.key === 'Backspace' || e.keyCode === 8) {
-        const active = document.activeElement;
-        const tag = active ? active.tagName.toLowerCase() : '';
-        const isEditable = active ? active.isContentEditable : false;
-        
-        // Only trigger if user is NOT currently typing in a text input field
-        if (tag !== 'input' && tag !== 'textarea' && tag !== 'select' && !isEditable) {
-          e.preventDefault();
-          const landing = document.getElementById('landingView');
-          const app = document.getElementById('appContainer');
-          
-          if (app && !app.classList.contains('hidden')) {
-            app.classList.add('hidden');
-            app.style.display = 'none';
-            if (landing) {
-              landing.classList.remove('hidden');
-              landing.style.display = 'block';
-            }
-          }
-        }
-      }
-    });
-  </script>
 
-  <!-- ================= LANDING PAGE SECTION ================= -->
+  <!-- LANDING PAGE -->
   <div id="landingView" class="w-full min-h-screen">
     <section class="bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gridBackground.png')] w-full bg-no-repeat bg-cover bg-center text-sm pb-32 min-h-screen">
       <nav class="flex items-center justify-between p-4 md:px-16 lg:px-24 xl:px-32 md:py-6 w-full">
         <!-- BRAND LOGO -->
-        <a href="#" class="flex items-center gap-2 font-bold text-xl tracking-tight text-slate-900">
+        <a href="index.html" class="flex items-center gap-2 font-bold text-xl tracking-tight text-slate-900">
           <span class="bg-slate-900 text-white px-2.5 py-1 rounded-lg text-sm font-semibold">GF</span>
           <span>Grace Finance</span>
         </a>
@@ -68,9 +34,9 @@
           <button id="landingThemeBtn" onclick="toggleLandingTheme()" class="p-2 text-slate-700 hover:text-slate-900 rounded-full hover:bg-slate-100 transition" title="Toggle Light/Dark Mode">
             <i class="fa-solid fa-moon text-lg" id="landingThemeIcon"></i>
           </button>
-          <button onclick="launchAppDirectly()" class="bg-slate-900 hover:bg-black text-white px-6 py-2.5 rounded-full font-medium transition shadow-md cursor-pointer">
+          <a href="tracker.html" class="bg-slate-900 hover:bg-black text-white px-6 py-2.5 rounded-full font-medium transition shadow-md cursor-pointer inline-block">
             Open Finance Tracker
-          </button>
+          </a>
         </div>
       </nav>
 
@@ -85,545 +51,14 @@
 
       <!-- SINGLE HERO BUTTON -->
       <div class="mx-auto w-full flex items-center justify-center mt-8">
-        <button onclick="launchAppDirectly()" class="bg-slate-900 hover:bg-black text-white px-8 py-3.5 rounded-full font-medium text-base transition shadow-lg hover:shadow-xl cursor-pointer">
+        <a href="tracker.html" class="bg-slate-900 hover:bg-black text-white px-8 py-3.5 rounded-full font-medium text-base transition shadow-lg hover:shadow-xl cursor-pointer inline-block">
           Open Finance Tracker
-        </button>
+        </a>
       </div>
     </section>
   </div>
 
-  <!-- ================= NOTION FINANCE DASHBOARD APP ================= -->
-  <div id="appContainer" class="app-layout" style="display: flex; min-height: 100vh;">
-    <!-- NOTION SIDEBAR -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <div class="flex items-center justify-between">
-          <div class="workspace-picker">
-            <span class="workspace-icon"><i class="fa-solid fa-briefcase text-slate-700"></i></span>
-            <div class="workspace-info">
-              <span class="workspace-title">Personal Finance</span>
-              <span class="workspace-plan">Grace Workspace</span>
-            </div>
-          </div>
-          <button onclick="logoutToLanding()" class="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] rounded hover:bg-[var(--bg-hover)] transition" title="Back to Main Landing Page">
-            <i class="fa-solid fa-arrow-left"></i>
-          </button>
-        </div>
-        <div class="theme-toggle-container">
-          <span class="theme-label"><i class="fa-solid fa-moon"></i> Dark Mode</span>
-          <label class="switch">
-            <input type="checkbox" id="themeToggle">
-            <span class="slider round"></span>
-          </label>
-        </div>
-      </div>
-
-      <nav class="sidebar-nav">
-        <div class="nav-section">
-          <span class="nav-section-title">FAVOURITES</span>
-          <button class="nav-item active" data-tab="dashboard">
-            <i class="fa-solid fa-chart-pie"></i>
-            <span>Overview & Analytics</span>
-          </button>
-          <button class="nav-item" data-tab="instructions">
-            <i class="fa-solid fa-circle-info text-blue-500"></i>
-            <span>Instructions & How to Use</span>
-          </button>
-          <button class="nav-item" data-tab="income-expenses">
-            <i class="fa-solid fa-coins"></i>
-            <span>Income & Outgoings</span>
-          </button>
-          <button class="nav-item" data-tab="calendar">
-            <i class="fa-regular fa-calendar-days"></i>
-            <span>Event Calendar</span>
-          </button>
-        </div>
-
-        <div class="nav-section">
-          <span class="nav-section-title">DATABASES & GUIDES</span>
-          <button class="nav-item" data-tab="instructions">
-            <i class="fa-solid fa-book-open"></i>
-            <span>User Guide & Instructions</span>
-          </button>
-          <button class="nav-item" data-tab="categories">
-            <i class="fa-solid fa-list-check"></i>
-            <span>Budget Categories</span>
-          </button>
-          <button class="nav-item" data-tab="export">
-            <i class="fa-solid fa-file-export"></i>
-            <span>Export (Excel & PDF)</span>
-          </button>
-        </div>
-      </nav>
-    </aside>
-
-    <!-- MAIN NOTION CANVAS -->
-    <main class="main-content" id="reportArea">
-      <header class="notion-header">
-        <div class="cover-image" id="coverImage"></div>
-        <div class="header-content">
-          <div class="page-icon-wrapper" id="pageIconWrapper">
-            <span class="page-icon" id="pageIcon"><i class="fa-solid fa-sterling-sign text-2xl text-slate-800"></i></span>
-          </div>
-
-          <div class="flex items-center justify-between gap-4 mb-2">
-            <div class="notion-breadcrumbs">
-              <span>Workspace</span> / <span class="current-page-crumb" id="crumbTitle">Overview & Analytics</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <button onclick="switchTab('instructions')" class="btn btn-sm btn-primary" title="View Step-by-Step Instructions">
-                <i class="fa-solid fa-circle-question"></i>
-                <span>How to Use</span>
-              </button>
-              <button onclick="logoutToLanding()" class="btn btn-sm btn-secondary" title="Back to Main Landing Page">
-                <i class="fa-solid fa-arrow-left"></i>
-                <span>Back to Home</span>
-              </button>
-            </div>
-          </div>
-
-          <h1 class="page-title" contenteditable="true" spellcheck="false" id="editablePageTitle">Personal Finance Tracker</h1>
-
-          <!-- QUICK STATS BAR -->
-          <div class="quick-stats-bar">
-            <div class="stat-pill positive">
-              <span class="stat-label">Net Monthly Salary:</span>
-              <strong id="statNetSalary">£0.00</strong>
-            </div>
-            <div class="stat-pill negative">
-              <span class="stat-label">Total Outgoings:</span>
-              <strong id="statTotalExpenses">£0.00</strong>
-            </div>
-            <div class="stat-pill highlight">
-              <span class="stat-label">Monthly Surplus:</span>
-              <strong id="statMonthlySurplus">£0.00</strong>
-            </div>
-            <div class="stat-pill info">
-              <span class="stat-label">Savings Rate:</span>
-              <strong id="statSavingsRate">0%</strong>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <!-- TAB 1: DASHBOARD OVERVIEW -->
-      <section class="tab-content active" id="tab-dashboard">
-        <div class="grid-2-col">
-          <div class="notion-block card">
-            <div class="block-header">
-              <h3><i class="fa-solid fa-diagram-project"></i> Monthly Cash Flow Diagram</h3>
-              <span class="badge blue">Live Breakdown</span>
-            </div>
-            <div class="cashflow-visual-container">
-              <div class="flow-step income-step">
-                <span class="flow-title">Gross Income</span>
-                <span class="flow-value" id="diagramGrossIncome">£0.00</span>
-              </div>
-              <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-              <div class="flow-step tax-step">
-                <span class="flow-title">Estimated Tax & NI</span>
-                <span class="flow-value" id="diagramTax">£0.00</span>
-              </div>
-              <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-              <div class="flow-step net-step">
-                <span class="flow-title">Take-Home Pay</span>
-                <span class="flow-value" id="diagramNetIncome">£0.00</span>
-              </div>
-            </div>
-
-            <div class="flow-splits">
-              <div class="split-card outgoings-split">
-                <div class="split-info">
-                  <span>Outgoings (Rent, Food, Bills)</span>
-                  <strong id="diagramTotalOutgoings">£0.00</strong>
-                </div>
-                <div class="progress-bar-container">
-                  <div class="progress-bar expense-fill" id="outgoingsProgressBar" style="width: 0%"></div>
-                </div>
-              </div>
-
-              <div class="split-card surplus-split">
-                <div class="split-info">
-                  <span>Remaining Surplus / Savings</span>
-                  <strong id="diagramSurplus">£0.00</strong>
-                </div>
-                <div class="progress-bar-container">
-                  <div class="progress-bar surplus-fill" id="surplusProgressBar" style="width: 0%"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="notion-block card">
-            <div class="block-header">
-              <h3><i class="fa-solid fa-chart-pie"></i> Expense Allocation</h3>
-              <span class="badge purple">Doughnut View</span>
-            </div>
-            <div class="chart-wrapper">
-              <canvas id="categoryDoughnutChart"></canvas>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid-2-col mt-4">
-          <div class="notion-block card">
-            <div class="block-header">
-              <h3><i class="fa-solid fa-chart-column"></i> 12-Month Financial Projection</h3>
-              <span class="badge green">Income vs Outgoings</span>
-            </div>
-            <div class="chart-wrapper">
-              <canvas id="annualBarChart"></canvas>
-            </div>
-          </div>
-
-          <div class="notion-block card">
-            <div class="block-header">
-              <h3><i class="fa-regular fa-calendar-check"></i> Upcoming Special Events</h3>
-              <button class="btn btn-sm btn-secondary" onclick="switchTab('calendar')"><i class="fa-solid fa-plus"></i> Add Event</button>
-            </div>
-            <div class="events-mini-list" id="dashboardEventsList">
-              <div class="empty-state">No upcoming financial events logged yet.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 2: INCOME & OUTGOINGS -->
-      <section class="tab-content" id="tab-income-expenses">
-        <div class="grid-2-col">
-          <div class="notion-block card">
-            <div class="block-header">
-              <h3><i class="fa-solid fa-wallet"></i> Monthly Income Inputs (£)</h3>
-              <span class="badge green">Primary Earnings</span>
-            </div>
-
-            <form id="incomeForm" class="notion-form">
-              <div class="form-group">
-                <label for="annualGrossSalary">Annual Gross Salary (£)</label>
-                <div class="input-with-symbol">
-                  <span class="symbol">£</span>
-                  <input type="number" id="annualGrossSalary" value="0" min="0" step="500" placeholder="0">
-                </div>
-                <small class="help-text">Calculates Tax & National Insurance automatically.</small>
-              </div>
-
-              <div class="form-group">
-                <label for="sideHustleIncome">Additional Monthly Income / Freelancing (£)</label>
-                <div class="input-with-symbol">
-                  <span class="symbol">£</span>
-                  <input type="number" id="sideHustleIncome" value="0" min="0" step="50" placeholder="0">
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="otherIncome">Other Monthly Income (£)</label>
-                <div class="input-with-symbol">
-                  <span class="symbol">£</span>
-                  <input type="number" id="otherIncome" value="0" min="0" step="50" placeholder="0">
-                </div>
-              </div>
-
-              <div class="summary-box green">
-                <div class="summary-row">
-                  <span>Gross Monthly Total:</span>
-                  <strong id="summaryGrossMonthly">£0.00</strong>
-                </div>
-                <div class="summary-row">
-                  <span>Est. Tax & NI:</span>
-                  <strong id="summaryMonthlyTax">-£0.00</strong>
-                </div>
-                <div class="summary-row total">
-                  <span>Net Take-Home Monthly:</span>
-                  <strong id="summaryNetMonthly">£0.00</strong>
-                </div>
-              </div>
-            </form>
-          </div>
-
-          <div class="notion-block card">
-            <div class="block-header">
-              <h3><i class="fa-solid fa-receipt"></i> Monthly Outgoings (£)</h3>
-              <button class="btn btn-sm btn-primary" id="btnAddExpense"><i class="fa-solid fa-plus"></i> Add Item</button>
-            </div>
-
-            <div class="notion-table-container">
-              <table class="notion-table" id="expensesTable">
-                <thead>
-                  <tr>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Type</th>
-                    <th class="text-right">Monthly Amount (£)</th>
-                    <th class="text-center">Action</th>
-                  </tr>
-                </thead>
-                <tbody id="expensesTableBody">
-                </tbody>
-              </table>
-            </div>
-
-            <div class="summary-box red mt-4">
-              <div class="summary-row total">
-                <span>Total Monthly Outgoings:</span>
-                <strong id="summaryTotalOutgoings">£0.00</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 3: CALENDAR -->
-      <section class="tab-content" id="tab-calendar">
-        <div class="grid-calendar-layout">
-          <div class="notion-block card">
-            <div class="calendar-controls">
-              <button class="btn btn-icon" id="prevMonthBtn"><i class="fa-solid fa-chevron-left"></i></button>
-              <h3 id="currentMonthYearTitle">August 2026</h3>
-              <button class="btn btn-icon" id="nextMonthBtn"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-
-            <div class="calendar-grid-header">
-              <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-            </div>
-            <div class="calendar-grid-days" id="calendarDays">
-            </div>
-          </div>
-
-          <div class="notion-block card">
-            <div class="block-header">
-              <h3><i class="fa-solid fa-plus-circle"></i> Log Special Event</h3>
-            </div>
-            <form id="eventForm" class="notion-form">
-              <div class="form-group">
-                <label for="eventTitle">Event Name</label>
-                <input type="text" id="eventTitle" placeholder="e.g. Flight Booking / Bonus" required>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="eventDate">Date</label>
-                  <input type="date" id="eventDate" required>
-                </div>
-                <div class="form-group">
-                  <label for="eventType">Type</label>
-                  <select id="eventType">
-                    <option value="expense">Expense (-£)</option>
-                    <option value="income">Income (+£)</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="eventAmount">Amount (£)</label>
-                <div class="input-with-symbol">
-                  <span class="symbol">£</span>
-                  <input type="number" id="eventAmount" min="1" placeholder="250" required>
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-calendar-plus"></i> Save Event to Calendar</button>
-            </form>
-
-            <hr class="notion-divider">
-
-            <div class="block-header">
-              <h3><i class="fa-solid fa-list-ul"></i> Scheduled Events</h3>
-            </div>
-            <div class="events-full-list" id="eventsFullList">
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 4: CATEGORIES -->
-      <section class="tab-content" id="tab-categories">
-        <div class="notion-block card">
-          <div class="block-header">
-            <h3><i class="fa-solid fa-tags"></i> Budget Category Limits & Status</h3>
-            <span class="badge gray">Notion Database</span>
-          </div>
-
-          <div class="notion-table-container">
-            <table class="notion-table">
-              <thead>
-                <tr>
-                  <th>Category</th>
-                  <th>Icon</th>
-                  <th>Monthly Target Limit (£)</th>
-                  <th>Current Outgoings (£)</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="categoryDatabaseBody">
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 6: USER GUIDE & INSTRUCTIONS -->
-      <section class="tab-content" id="tab-instructions">
-        <div class="notion-block card">
-          <div class="block-header">
-            <h3><i class="fa-solid fa-book-open text-blue-500"></i> How to Use Grace Personal Finance Tracker</h3>
-            <span class="badge blue">Step-by-Step Guide</span>
-          </div>
-
-          <div class="space-y-6 text-sm">
-            <!-- STEP 1 -->
-            <div class="p-4 border border-[var(--border-color)] rounded-lg bg-[var(--bg-primary)]">
-              <div class="flex items-center gap-3 mb-2">
-                <span class="w-7 h-7 flex items-center justify-center bg-blue-500 text-white font-bold rounded-full text-xs">1</span>
-                <h4 class="font-bold text-base">Enter Your Monthly Income & Salary</h4>
-              </div>
-              <p class="text-[var(--text-secondary)] ml-10">
-                Go to the <strong>Income & Outgoings</strong> tab. Enter your annual gross salary in British Pounds (£). The financial engine automatically calculates your estimated UK Income Tax (20%/40%) and National Insurance contributions to derive your net take-home salary. You can also add freelancing or side hustle income.
-              </p>
-            </div>
-
-            <!-- STEP 2 -->
-            <div class="p-4 border border-[var(--border-color)] rounded-lg bg-[var(--bg-primary)]">
-              <div class="flex items-center gap-3 mb-2">
-                <span class="w-7 h-7 flex items-center justify-center bg-green-500 text-white font-bold rounded-full text-xs">2</span>
-                <h4 class="font-bold text-base">Add Your Monthly Outgoings & Expenses</h4>
-              </div>
-              <p class="text-[var(--text-secondary)] ml-10">
-                Click <strong>+ Add Item</strong> in the outgoings table to log recurring expenses (e.g. Rent, Utilities, Groceries, Transport, Entertainment). Select whether the item is <em>Fixed (essential)</em> or <em>Variable</em>. All totals update live on your main Dashboard.
-              </p>
-            </div>
-
-            <!-- STEP 3 -->
-            <div class="p-4 border border-[var(--border-color)] rounded-lg bg-[var(--bg-primary)]">
-              <div class="flex items-center gap-3 mb-2">
-                <span class="w-7 h-7 flex items-center justify-center bg-purple-500 text-white font-bold rounded-full text-xs">3</span>
-                <h4 class="font-bold text-base">Schedule Financial Events in Calendar</h4>
-              </div>
-              <p class="text-[var(--text-secondary)] ml-10">
-                Switch to the <strong>Event Calendar</strong> tab to log one-off future expenses (e.g., Summer Holiday £400, Car Maintenance £200) or extra income bonuses. The calendar grid visualizes upcoming dates and projects your net accumulated cash position over time.
-              </p>
-            </div>
-
-            <!-- STEP 4 -->
-            <div class="p-4 border border-[var(--border-color)] rounded-lg bg-[var(--bg-primary)]">
-              <div class="flex items-center gap-3 mb-2">
-                <span class="w-7 h-7 flex items-center justify-center bg-yellow-500 text-white font-bold rounded-full text-xs">4</span>
-                <h4 class="font-bold text-base">Export Formula-Driven Excel & PDF Reports</h4>
-              </div>
-              <p class="text-[var(--text-secondary)] ml-10">
-                Visit the <strong>Export</strong> tab to download your data. 
-                <br>• <strong>Interactive Excel (.xlsx)</strong>: Exports a live spreadsheet with dynamic Excel formulas (`=SUM()`, `=B2-B10`). You can open it in Microsoft Excel, change your salary inside Excel, and watch all figures automatically recalculate!
-                <br>• <strong>PDF Report</strong>: Generates a high-resolution printable presentation document.
-              </p>
-            </div>
-
-            <!-- STEP 5 -->
-            <div class="p-4 border border-[var(--border-color)] rounded-lg bg-[var(--bg-primary)]">
-              <div class="flex items-center gap-3 mb-2">
-                <span class="w-7 h-7 flex items-center justify-center bg-red-500 text-white font-bold rounded-full text-xs">5</span>
-                <h4 class="font-bold text-base">Cloud Auto-Save (Firebase Database)</h4>
-              </div>
-              <p class="text-[var(--text-secondary)] ml-10">
-                When you are logged into your account, every budget modification automatically syncs to your **Firebase Cloud Database**. Your data stays saved so you can log back in from any device without losing your progress.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TAB 5: EXPORT -->
-      <section class="tab-content" id="tab-export">
-        <div class="export-hero-card notion-block card">
-          <div class="export-icon-large"><i class="fa-solid fa-chart-line text-blue-500"></i></div>
-          <h2>Save & Share Your Financial Data</h2>
-          <p>Export your complete financial records either as an interactive, formula-driven Excel sheet or a clean PDF report.</p>
-
-          <div class="export-cards-grid mt-4">
-            <div class="export-option-card">
-              <div class="option-header">
-                <i class="fa-solid fa-file-excel excel-icon"></i>
-                <div>
-                  <h3>Interactive Excel (.xlsx) Export</h3>
-                  <span class="badge green">With Live Excel Formulas</span>
-                </div>
-              </div>
-              <p>Generates an editable `.xlsx` document with real formulas (`=SUM()`, `=B4-B15`). You can open it in Excel, change your salary, and it will recalculate live!</p>
-              <button class="btn btn-success btn-lg btn-block" id="btnExportExcel">
-                <i class="fa-solid fa-download"></i> Download Dynamic Excel Sheet
-              </button>
-            </div>
-
-            <div class="export-option-card">
-              <div class="option-header">
-                <i class="fa-solid fa-file-pdf pdf-icon"></i>
-                <div>
-                  <h3>PDF Document Export</h3>
-                  <span class="badge red">Print Ready</span>
-                </div>
-              </div>
-              <p>Generates a formatted, high-resolution PDF document showing your financial overview and outgoings breakdown in British Pounds (£).</p>
-              <button class="btn btn-danger btn-lg btn-block" id="btnExportPDF">
-                <i class="fa-solid fa-file-arrow-down"></i> Save as PDF Document
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- ADD/EDIT EXPENSE MODAL -->
-  <div class="modal-overlay" id="expenseModal">
-    <div class="notion-modal">
-      <div class="modal-header">
-        <h3 id="expenseModalTitle">Add Expense Item</h3>
-        <button class="close-modal" id="closeExpenseModal">&times;</button>
-      </div>
-      <form id="modalExpenseForm" class="notion-form">
-        <div class="form-group">
-          <label for="modalExpenseCategory">Category</label>
-          <select id="modalExpenseCategory" required>
-            <option value="Housing & Rent">Housing & Rent</option>
-            <option value="Utilities & Bills">Utilities & Bills</option>
-            <option value="Food & Groceries">Food & Groceries</option>
-            <option value="Transport & Car">Transport & Car</option>
-            <option value="Entertainment & Leisure">Entertainment & Leisure</option>
-            <option value="Subscriptions">Subscriptions</option>
-            <option value="Savings & Investments">Savings & Investments</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="modalExpenseDesc">Description</label>
-          <input type="text" id="modalExpenseDesc" placeholder="e.g. Monthly Rent / Flat 4B" required>
-        </div>
-
-        <div class="form-group">
-          <label for="modalExpenseType">Expense Type</label>
-          <select id="modalExpenseType">
-            <option value="Fixed">Fixed (Essential)</option>
-            <option value="Variable">Variable (Flexible)</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="modalExpenseAmount">Monthly Amount (£)</label>
-          <div class="input-with-symbol">
-            <span class="symbol">£</span>
-            <input type="number" id="modalExpenseAmount" min="0" step="5" placeholder="850" required>
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-block">Save Expense</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- DYNAMIC EXCEL & CHART SCRIPTS -->
-  <script src="script.js"></script>
   <script>
-    // LANDING & APP THEME TOGGLE LOGIC
     function toggleLandingTheme() {
       const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -631,97 +66,23 @@
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('notion_theme', newTheme);
 
-      const themeToggle = document.getElementById('themeToggle');
-      if (themeToggle) themeToggle.checked = newTheme === 'dark';
-
       const icon = document.getElementById('landingThemeIcon');
       if (icon) {
         icon.className = newTheme === 'dark' ? 'fa-solid fa-sun text-lg text-yellow-400' : 'fa-solid fa-moon text-lg';
       }
-
-      if (typeof renderCharts === 'function') renderCharts();
     }
 
-    // AUTH & VIEW SWITCHING LOGIC
-    function openAuthModal(mode) {
-      document.getElementById('authModal').classList.remove('hidden');
-      switchAuthTab(mode);
-    }
-
-    function closeAuthModal() {
-      document.getElementById('authModal').classList.add('hidden');
-    }
-
-    function switchAuthTab(mode) {
-      const loginForm = document.getElementById('loginForm');
-      const signupForm = document.getElementById('signupForm');
-      const tabLogin = document.getElementById('authTabLogin');
-      const tabSignup = document.getElementById('authTabSignup');
-
-      if (mode === 'login') {
-        loginForm.classList.remove('hidden');
-        signupForm.classList.add('hidden');
-        tabLogin.className = 'w-1/2 py-2.5 font-semibold text-slate-900 border-b-2 border-slate-900 text-center transition';
-        tabSignup.className = 'w-1/2 py-2.5 font-medium text-slate-500 border-b-2 border-transparent text-center transition';
-      } else {
-        signupForm.classList.remove('hidden');
-        loginForm.classList.add('hidden');
-        tabSignup.className = 'w-1/2 py-2.5 font-semibold text-slate-900 border-b-2 border-slate-900 text-center transition';
-        tabLogin.className = 'w-1/2 py-2.5 font-medium text-slate-500 border-b-2 border-transparent text-center transition';
-      }
-    }
-
-    async function handleAuthSubmit(e) {
-      e.preventDefault();
-      const loginForm = document.getElementById('loginForm');
-      const isLogin = !loginForm.classList.contains('hidden');
-
-      const authProvider = window.firebaseAuth || window.db;
-
-      try {
-        if (isLogin) {
-          const email = loginForm.querySelector('input[type="email"]').value;
-          const pass = loginForm.querySelector('input[type="password"]').value;
-          await authProvider.login(email, pass);
-        } else {
-          const signupForm = document.getElementById('signupForm');
-          const name = signupForm.querySelector('input[type="text"]').value;
-          const email = signupForm.querySelector('input[type="email"]').value;
-          const pass = signupForm.querySelector('input[type="password"]').value;
-          await authProvider.signUp(name, email, pass);
-        }
-
-        closeAuthModal();
-        launchAppDirectly();
-      } catch (err) {
-        alert(err.message || 'Authentication error.');
-      }
-    }
-
-    function launchAppDirectly() {
-      const user = window.db.getCurrentUser();
-      if (user) {
-        document.querySelectorAll('.workspace-title').forEach(el => el.textContent = `${user.name}'s Finance`);
-        const savedData = window.db.getUserData(user.userId);
-        if (savedData) {
-          appState.income = savedData.income || appState.income;
-          appState.expenses = savedData.expenses || [];
-          appState.events = savedData.events || [];
+    // BACKSPACE LISTENER ON LANDING PAGE
+    window.addEventListener('keydown', function(e) {
+      if (e.key === 'Backspace' || e.keyCode === 8) {
+        const active = document.activeElement;
+        const tag = active ? active.tagName.toLowerCase() : '';
+        if (tag !== 'input' && tag !== 'textarea' && tag !== 'select') {
+          e.preventDefault();
+          window.location.href = 'tracker.html';
         }
       }
-
-      document.getElementById('landingView').classList.add('hidden');
-      document.getElementById('appContainer').classList.remove('hidden');
-      document.getElementById('appContainer').style.display = 'flex';
-      recalculateAll();
-    }
-
-    async function logoutToLanding() {
-      if (window.firebaseAuth) await window.firebaseAuth.logout();
-      document.getElementById('appContainer').classList.add('hidden');
-      document.getElementById('appContainer').style.display = 'none';
-      document.getElementById('landingView').classList.remove('hidden');
-    }
+    });
   </script>
 </body>
 </html>
