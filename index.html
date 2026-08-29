@@ -17,44 +17,138 @@
     * { font-family: 'Poppins', 'Inter', sans-serif; }
   </style>
 </head>
-<body class="bg-[var(--bg-primary)] text-[var(--text-primary)]">
+<body class="bg-slate-950 text-slate-100 min-h-screen">
 
-  <!-- LANDING PAGE -->
-  <div id="landingView" class="w-full min-h-screen">
-    <section class="bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gridBackground.png')] w-full bg-no-repeat bg-cover bg-center text-sm pb-32 min-h-screen">
-      <nav class="flex items-center justify-between p-4 md:px-16 lg:px-24 xl:px-32 md:py-6 w-full">
+  <!-- LANDING PAGE WITH CASHIO MODERN PURPLE/GRADIENT AESTHETIC -->
+  <div id="landingView" class="w-full min-h-screen relative overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/40 via-slate-950 to-slate-950">
+    
+    <!-- BACKGROUND GLOW EFFECTS -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-purple-600/20 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="absolute top-1/3 right-10 w-[400px] h-[400px] bg-indigo-600/15 blur-[100px] rounded-full pointer-events-none"></div>
+
+    <section class="relative z-10 w-full text-sm pb-24 min-h-screen flex flex-col justify-between">
+      
+      <!-- NAVBAR -->
+      <nav class="flex items-center justify-between p-4 md:px-16 lg:px-24 xl:px-32 md:py-6 w-full max-w-7xl mx-auto">
         <!-- BRAND LOGO -->
-        <a href="index.html" class="flex items-center gap-2 font-bold text-xl tracking-tight text-slate-900">
-          <span class="bg-slate-900 text-white px-2.5 py-1 rounded-lg text-sm font-semibold">GF</span>
-          <span>Grace Finance</span>
+        <a href="index.html" class="flex items-center gap-3 font-bold text-2xl tracking-tight text-white">
+          <span class="bg-gradient-to-tr from-purple-600 to-indigo-500 text-white w-10 h-10 rounded-xl flex items-center justify-center text-lg shadow-lg shadow-purple-500/30">
+            <i class="fa-solid fa-wallet"></i>
+          </span>
+          <span class="bg-gradient-to-r from-white via-slate-200 to-purple-300 bg-clip-text text-transparent">Grace Finance</span>
         </a>
 
         <!-- NAV ACTION & THEME TOGGLE -->
-        <div class="flex items-center gap-3">
-          <button id="landingThemeBtn" onclick="toggleLandingTheme()" class="p-2 text-slate-700 hover:text-slate-900 rounded-full hover:bg-slate-100 transition" title="Toggle Light/Dark Mode">
-            <i class="fa-solid fa-moon text-lg" id="landingThemeIcon"></i>
-          </button>
-          <a href="tracker.html" class="bg-slate-900 hover:bg-black text-white px-6 py-2.5 rounded-full font-medium transition shadow-md cursor-pointer inline-block">
-            Open Finance Tracker
+        <div class="flex items-center gap-4">
+          <a href="tracker.html" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg shadow-purple-600/30 hover:shadow-purple-600/50 hover:scale-105 inline-flex items-center gap-2">
+            <span>Open Finance Tracker</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
           </a>
         </div>
       </nav>
 
-      <!-- HERO TITLE & SUBTITLE -->
-      <h1 class="text-4xl md:text-6xl font-bold max-w-[850px] text-center mx-auto mt-16 text-slate-900 leading-tight">
-        Master your budget & outgoings with precision
-      </h1>
+      <!-- HERO BANNER -->
+      <div class="max-w-6xl mx-auto px-4 text-center mt-12 md:mt-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-purple-500/30 bg-purple-950/40 backdrop-blur text-purple-300 text-xs font-medium mb-6 shadow-inner">
+          <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+          <span>Next-Gen Smart Expense Manager</span>
+        </div>
 
-      <p class="text-base md:text-lg mx-auto max-w-2xl text-center mt-6 max-md:px-4 text-slate-600">
-        Track your salary, outgoings, food costs, and upcoming calendar events in one simple Notion-style workspace. Export formula-ready Excel spreadsheets anytime.
-      </p>
+        <h1 class="text-4xl md:text-7xl font-extrabold max-w-4xl text-center mx-auto text-white leading-tight tracking-tight">
+          Manage money beautifully on <span class="bg-gradient-to-r from-purple-400 via-indigo-300 to-pink-400 bg-clip-text text-transparent">Web & Mobile</span>
+        </h1>
 
-      <!-- SINGLE HERO BUTTON -->
-      <div class="mx-auto w-full flex items-center justify-center mt-8">
-        <a href="tracker.html" class="bg-slate-900 hover:bg-black text-white px-8 py-3.5 rounded-full font-medium text-base transition shadow-lg hover:shadow-xl cursor-pointer inline-block">
-          Open Finance Tracker
-        </a>
+        <p class="text-base md:text-xl mx-auto max-w-2xl text-center mt-6 text-slate-400 font-normal">
+          Track salary, rent outgoings, groceries, and calendar events with accurate UK tax calculations and formula-ready Excel exports.
+        </p>
+
+        <!-- CTA BUTTON -->
+        <div class="mx-auto w-full flex items-center justify-center mt-8">
+          <a href="tracker.html" class="bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-700 hover:opacity-95 text-white px-9 py-4 rounded-full font-semibold text-lg transition-all duration-300 shadow-xl shadow-purple-600/40 hover:scale-105 inline-flex items-center gap-3">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Launch Web App</span>
+          </a>
+        </div>
+
+        <!-- MOCKUP DEVICE SHOWCASE (LAPTOP & MOBILE PREVIEW) -->
+        <div class="mt-16 relative max-w-5xl mx-auto">
+          <!-- LAPTOP & MOBILE CONTAINER MOCKUP -->
+          <div class="relative bg-slate-900/80 border border-slate-800 p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-2xl backdrop-blur-xl group">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800 text-xs text-slate-500 px-2">
+              <div class="flex gap-2">
+                <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+              </div>
+              <span class="font-mono text-slate-400 bg-slate-950/60 px-3 py-1 rounded-full border border-slate-800">app.gracefinance.co</span>
+              <span>Web & Mobile Ready</span>
+            </div>
+
+            <!-- DASHBOARD PREVIEW CARDS (CASHIO INSPIRED UI) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+              <!-- CARD 1: WALLET BALANCE -->
+              <div class="bg-gradient-to-br from-purple-900/50 to-indigo-900/40 border border-purple-500/30 p-5 rounded-2xl shadow-lg">
+                <div class="text-xs text-purple-300 font-medium">Take-Home Monthly Pay</div>
+                <div class="text-2xl font-bold text-white mt-1">£2,886.67</div>
+                <div class="mt-3 text-[11px] text-emerald-400 flex items-center gap-1">
+                  <i class="fa-solid fa-arrow-trend-up"></i>
+                  <span>Net Salary after UK Tax & NI</span>
+                </div>
+              </div>
+
+              <!-- CARD 2: OUTGOINGS -->
+              <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-2xl">
+                <div class="text-xs text-slate-400 font-medium">Monthly Outgoings</div>
+                <div class="text-2xl font-bold text-rose-400 mt-1">£1,650.00</div>
+                <div class="mt-3 text-[11px] text-slate-500">Rent, Groceries, Utilities & Bills</div>
+              </div>
+
+              <!-- CARD 3: SURPLUS SAVINGS -->
+              <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-2xl">
+                <div class="text-xs text-slate-400 font-medium">Net Monthly Surplus</div>
+                <div class="text-2xl font-bold text-emerald-400 mt-1">£1,236.67</div>
+                <div class="mt-3 text-[11px] text-purple-300 font-semibold">Savings Rate: 42%</div>
+              </div>
+            </div>
+
+            <!-- CARD TRANSACTIONS SAMPLE -->
+            <div class="mt-4 bg-slate-950/80 border border-slate-800 rounded-2xl p-4 text-left">
+              <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-semibold text-slate-300">Outgoings & Category Allocations</span>
+                <span class="text-[11px] text-purple-400">Live Tracker</span>
+              </div>
+              <div class="space-y-2">
+                <div class="flex justify-between items-center p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-300 flex items-center justify-center"><i class="fa-solid fa-house text-xs"></i></span>
+                    <div>
+                      <div class="font-medium text-slate-200">Housing Rent</div>
+                      <div class="text-[10px] text-slate-500">Fixed Monthly</div>
+                    </div>
+                  </div>
+                  <span class="font-bold text-rose-400">-£950.00</span>
+                </div>
+                <div class="flex justify-between items-center p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-300 flex items-center justify-center"><i class="fa-solid fa-cart-shopping text-xs"></i></span>
+                    <div>
+                      <div class="font-medium text-slate-200">Food & Supermarket</div>
+                      <div class="text-[10px] text-slate-500">Variable Expense</div>
+                    </div>
+                  </div>
+                  <span class="font-bold text-rose-400">-£350.00</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
+
+      <!-- FOOTER -->
+      <footer class="mt-16 text-center text-xs text-slate-600 border-t border-slate-900 pt-8">
+        <span>© 2026 Grace Finance Tracker. Responsive Web & Mobile Workspace.</span>
+      </footer>
     </section>
   </div>
 
