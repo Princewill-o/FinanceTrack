@@ -70,10 +70,10 @@
 
       <!-- HERO BUTTONS -->
       <div class="mx-auto w-full flex items-center justify-center gap-4 mt-8">
-        <button onclick="launchAppDirectly()" class="bg-slate-900 hover:bg-black text-white px-8 py-3.5 rounded-full font-medium text-base transition shadow-lg hover:shadow-xl cursor-pointer">
+        <button onclick="document.getElementById('landingView').style.display='none'; document.getElementById('appContainer').style.display='flex'; document.getElementById('appContainer').classList.remove('hidden');" class="bg-slate-900 hover:bg-black text-white px-8 py-3.5 rounded-full font-medium text-base transition shadow-lg hover:shadow-xl cursor-pointer">
           Open Finance Tracker
         </button>
-        <button onclick="launchAppDirectly()" class="flex items-center gap-2 border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 rounded-full px-6 py-3.5 font-medium transition shadow-sm cursor-pointer">
+        <button onclick="document.getElementById('landingView').style.display='none'; document.getElementById('appContainer').style.display='flex'; document.getElementById('appContainer').classList.remove('hidden');" class="flex items-center gap-2 border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 rounded-full px-6 py-3.5 font-medium transition shadow-sm cursor-pointer">
           <span>Live Demo</span>
           <i class="fa-solid fa-arrow-right text-xs"></i>
         </button>
