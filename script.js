@@ -41,10 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // BACKSPACE KEY LISTENER (Return to Home Page if not typing in an input field)
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Backspace') {
-      const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
-      const isEditable = document.activeElement ? document.activeElement.isContentEditable : false;
-      if (activeTag !== 'input' && activeTag !== 'textarea' && activeTag !== 'select' && !isEditable) {
+    if (e.key === 'Backspace' || e.keyCode === 8) {
+      const activeEl = document.activeElement;
+      const tag = activeEl ? activeEl.tagName.toLowerCase() : '';
+      const isInput = tag === 'input' || tag === 'textarea' || tag === 'select' || (activeEl && activeEl.isContentEditable);
+      
+      if (!isInput) {
+        e.preventDefault();
         if (typeof window.logoutToLanding === 'function') {
           window.logoutToLanding();
         }
