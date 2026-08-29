@@ -27,7 +27,7 @@
 </head>
 <body class="bg-[var(--bg-primary)] text-[var(--text-primary)]">
   <script>
-    // Global Backspace Key Listener for Home Navigation Across All Views
+    // Global Backspace Key Listener to return to home landing page
     window.addEventListener('keydown', function(e) {
       if (e.key === 'Backspace' || e.keyCode === 8) {
         const active = document.activeElement;
@@ -41,16 +41,11 @@
           const app = document.getElementById('appContainer');
           
           if (app && !app.classList.contains('hidden')) {
-            // Return to landing page
             app.classList.add('hidden');
             app.style.display = 'none';
-            if (landing) landing.classList.remove('hidden');
-          } else if (landing) {
-            // Launch tracker
-            landing.classList.add('hidden');
-            if (app) {
-              app.classList.remove('hidden');
-              app.style.display = 'flex';
+            if (landing) {
+              landing.classList.remove('hidden');
+              landing.style.display = 'block';
             }
           }
         }
@@ -74,24 +69,13 @@
             <i class="fa-solid fa-moon text-lg" id="landingThemeIcon"></i>
           </button>
           <button onclick="launchAppDirectly()" class="bg-slate-900 hover:bg-black text-white px-6 py-2.5 rounded-full font-medium transition shadow-md cursor-pointer">
-            Open Tracker
+            Open Finance Tracker
           </button>
         </div>
       </nav>
 
-      <!-- ANNOUNCEMENT BADGE -->
-      <div class="flex items-center gap-2 border border-slate-300 hover:border-slate-400/70 bg-white/80 backdrop-blur rounded-full w-max mx-auto px-4 py-2 mt-20 md:mt-24 shadow-sm">
-        <span class="text-slate-600">Smart Financial Management for Everyone</span>
-        <button onclick="launchAppDirectly()" class="flex items-center gap-1 font-medium text-slate-900 hover:underline cursor-pointer">
-          <span>Explore Now</span>
-          <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <path d="M3.959 9.5h11.083m0 0L9.501 3.958M15.042 9.5l-5.541 5.54" stroke="#050040" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-      </div>
-
       <!-- HERO TITLE & SUBTITLE -->
-      <h1 class="text-4xl md:text-6xl font-bold max-w-[850px] text-center mx-auto mt-8 text-slate-900 leading-tight">
+      <h1 class="text-4xl md:text-6xl font-bold max-w-[850px] text-center mx-auto mt-16 text-slate-900 leading-tight">
         Master your budget & outgoings with precision
       </h1>
 
@@ -99,14 +83,10 @@
         Track your salary, outgoings, food costs, and upcoming calendar events in one simple Notion-style workspace. Export formula-ready Excel spreadsheets anytime.
       </p>
 
-      <!-- HERO BUTTONS -->
-      <div class="mx-auto w-full flex items-center justify-center gap-4 mt-8">
-        <button onclick="document.getElementById('landingView').style.display='none'; document.getElementById('appContainer').style.display='flex'; document.getElementById('appContainer').classList.remove('hidden');" class="bg-slate-900 hover:bg-black text-white px-8 py-3.5 rounded-full font-medium text-base transition shadow-lg hover:shadow-xl cursor-pointer">
+      <!-- SINGLE HERO BUTTON -->
+      <div class="mx-auto w-full flex items-center justify-center mt-8">
+        <button onclick="launchAppDirectly()" class="bg-slate-900 hover:bg-black text-white px-8 py-3.5 rounded-full font-medium text-base transition shadow-lg hover:shadow-xl cursor-pointer">
           Open Finance Tracker
-        </button>
-        <button onclick="document.getElementById('landingView').style.display='none'; document.getElementById('appContainer').style.display='flex'; document.getElementById('appContainer').classList.remove('hidden');" class="flex items-center gap-2 border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 rounded-full px-6 py-3.5 font-medium transition shadow-sm cursor-pointer">
-          <span>Live Demo</span>
-          <i class="fa-solid fa-arrow-right text-xs"></i>
         </button>
       </div>
     </section>
