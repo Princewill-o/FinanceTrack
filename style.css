@@ -57,6 +57,15 @@
 }
 
 /* Landing Page Dark Mode Overrides */
+[data-theme="dark"] body {
+  background-color: #18181b !important;
+  color: #f4f4f5 !important;
+}
+
+[data-theme="dark"] #landingView {
+  background-color: #18181b !important;
+}
+
 [data-theme="dark"] #landingView nav a,
 [data-theme="dark"] #landingView nav button {
   color: #f4f4f5 !important;

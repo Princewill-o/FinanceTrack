@@ -671,7 +671,20 @@
     </div>
   </div>
 
+  <!-- DB & FIREBASE AUTH INTEGRATION -->
   <script src="db.js"></script>
+  <script>
+    // Synchronous Auth Fallback Object for Instant Button Click Readiness on Deployments
+    if (!window.firebaseAuth) {
+      window.firebaseAuth = {
+        async signUp(name, email, pass) { return window.db ? window.db.signUp(name, email, pass) : null; },
+        async login(email, pass) { return window.db ? window.db.login(email, pass) : null; },
+        async logout() { if (window.db) window.db.logout(); },
+        getCurrentUser() { return window.db ? window.db.getCurrentUser() : null; },
+        async saveFinanceData(id, data) { if (window.db) window.db.saveUserData(id, data); }
+      };
+    }
+  </script>
   <script type="module" src="firebase.js"></script>
   <script src="script.js"></script>
   <script>
@@ -728,17 +741,19 @@
       const loginForm = document.getElementById('loginForm');
       const isLogin = !loginForm.classList.contains('hidden');
 
+      const authProvider = window.firebaseAuth || window.db;
+
       try {
         if (isLogin) {
           const email = loginForm.querySelector('input[type="email"]').value;
           const pass = loginForm.querySelector('input[type="password"]').value;
-          await window.firebaseAuth.login(email, pass);
+          await authProvider.login(email, pass);
         } else {
           const signupForm = document.getElementById('signupForm');
           const name = signupForm.querySelector('input[type="text"]').value;
           const email = signupForm.querySelector('input[type="email"]').value;
           const pass = signupForm.querySelector('input[type="password"]').value;
-          await window.firebaseAuth.signUp(name, email, pass);
+          await authProvider.signUp(name, email, pass);
         }
 
         closeAuthModal();
