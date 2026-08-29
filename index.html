@@ -26,6 +26,31 @@
   </style>
 </head>
 <body class="bg-[var(--bg-primary)] text-[var(--text-primary)]">
+  <script>
+    // Robust Global View Switcher (Works instantly on click)
+    window.launchAppDirectly = function() {
+      const landing = document.getElementById('landingView');
+      const app = document.getElementById('appContainer');
+      if (landing) landing.classList.add('hidden');
+      if (app) {
+        app.classList.remove('hidden');
+        app.style.display = 'flex';
+      }
+      if (typeof recalculateAll === 'function') {
+        recalculateAll();
+      }
+    };
+
+    window.logoutToLanding = function() {
+      const landing = document.getElementById('landingView');
+      const app = document.getElementById('appContainer');
+      if (app) {
+        app.classList.add('hidden');
+        app.style.display = 'none';
+      }
+      if (landing) landing.classList.remove('hidden');
+    };
+  </script>
 
   <!-- ================= LANDING PAGE SECTION ================= -->
   <div id="landingView" class="w-full min-h-screen">
